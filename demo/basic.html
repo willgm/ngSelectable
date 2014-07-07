@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ngSelectable</title>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="../src/ngSelectable.js"></script>
+  <style>
+    #feedback { font-size: 1.4em; }
+    #selectable .ui-selecting { background: #FECA40; }
+    #selectable .ui-selected { background: #F39814; color: white; }
+    #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+    #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+  </style>
+  <script>
+      items = [ "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" ];
+  </script>
+</head>
+<body ng-app="ngSelectable" ng-init="friends = [
+  {name:'John', age:25, gender:'boy'},
+  {name:'Jessie', age:30, gender:'girl'},
+  {name:'Johanna', age:28, gender:'girl'},
+  {name:'Joy', age:15, gender:'girl'},
+  {name:'Mary', age:28, gender:'girl'},
+  {name:'Peter', age:95, gender:'boy'},
+  {name:'Sebastian', age:50, gender:'boy'},
+  {name:'Erika', age:27, gender:'girl'},
+  {name:'Patrick', age:40, gender:'boy'},
+  {name:'Samantha', age:60, gender:'girl'}
+]">
+
+<p id="feedback">
+    You've selected:
+    <span id="select-result" ng-hide="selected">none</span>
+    <span id="select-result" ng-repeat="friend in selected"> {{friend.name}}</span>
+</p>
+
+<ul id="selectable" selectable selectable-list="friends" selectable-out="selected">
+  <li class="ui-widget-content" ng-repeat="friend in friends">{{friend.name}}</li>
+</ul>
+
+
+</body>
+</html>
