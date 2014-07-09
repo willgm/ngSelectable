@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ngSelectable</title>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script src="../src/ngSelectable.js"></script>
+    <style>
+        section {
+          width: 700px;
+          margin: auto;
+        }
+        ul {
+          list-style: none outside none;
+          display: inline-block;
+          width: 45%;
+        }
+        .selected-friends {
+          border: 1px solid #444;
+          border-radius: 5px;
+          padding: 2px;
+          margin: 2px;
+        }
+        #feedback {
+          font-size: 1.4em;
+        }
+        #selectable .ui-selecting {
+          background: #FECA40;
+        }
+        #selectable .ui-selected {
+          background: #F39814;
+          color: white;
+        }
+        #selectable {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+        #selectable li {
+          width: auto;
+          padding: 5px 10px;
+          margin: 5px 0;
+          border: 2px solid #444;
+          border-radius: 5px;
+          font-size: 1.1em;
+          font-weight: bold;
+          text-align: center;
+        }
+        .logList {
+          float: right;
+          min-height: 200px;
+          padding: 5px 15px;
+          border: 5px solid #000;
+          border-radius: 15px;
+        }
+        .logList:before {
+          content: 'log';
+          padding: 0 5px;
+          position: relative;
+          top: -1.1em;
+          background-color: #FFF;
+        }
+    </style>
+    <script>
+        angular.module('selectableApp', ['ngSelectable'])
+            .controller('exampleController', function ($scope) {
+                $scope.selection = true;
+                $scope.selected = $scope.log = [];
+                $scope.friends = [
+                  {name: 'John', age: 25, gender: 'boy'},
+                  {name: 'Jessie', age: 30, gender: 'girl'},
+                  {name: 'Johanna', age: 28, gender: 'girl'},
+                  {name: 'Joy', age: 15, gender: 'girl'},
+                  {name: 'Mary', age: 28, gender: 'girl'},
+                  {name: 'Peter', age: 95, gender: 'boy'},
+                  {name: 'Sebastian', age: 50, gender: 'boy'},
+                  {name: 'Erika', age: 27, gender: 'girl'},
+                  {name: 'Patrick', age: 40, gender: 'boy'},
+                  {name: 'Samantha', age: 60, gender: 'girl'}
+                ];
+                $scope.selectionStart = function(){
+                    $scope.log.push(($scope.log.length+1)+': selection start!');
+                };
+                $scope.selectionStop = function(selected){
+                    $scope.log.push(($scope.log.length+1)+': items selected: '+selected.length);
+                };
+          });
+    </script>
+</head>
+<body>
+
+<section ng-app="selectableApp" ng-controller="exampleController">
+
+    <label>
+        <input type="checkbox" ng-model="selection" /> Toggle Selection
+    </label>
+
+    <p>
+        You've selected:
+        <span ng-hide="selected">none</span>
+        <span class="selected-friends" ng-repeat="friend in selected"> {{friend.name}}</span>
+    </p>
+
+    <ul id="selectable"
+        selectable="selection"
+        selectable-list="friends"
+        selectable-out="selected"
+        selectable-events="{start:'selectionStart()', stop:'selectionStop($selected)'}">
+        <li class="ui-widget-content" ng-repeat="friend in friends">{{friend.name}}</li>
+    </ul>
+
+    <ul class="list logList">
+        <li ng-repeat="entry in log" class="logItem">
+            {{entry}}
+        </li>
+    </ul>
+
+</section>
+
+</body>
+</html>
