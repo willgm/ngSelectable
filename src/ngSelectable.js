@@ -36,10 +36,15 @@
         .directive("selectableEvents", ['$parse', function ($parse) {
             return function (scope, element, attr) {
                 var selectableEvents = scope.$eval(attr.selectableEvents) || {};
+                var selectableList = scope.$eval(attr.selectableList);
 
                 $.map(selectableEvents, function(callback, eventName){
                     element.bind("selectable" + eventName, function (e, ui) {
                         if (e.preventDefault) e.preventDefault();
+
+                        var selecteds = !selectableList? [] : element.find('.ui-selected').map(function () {
+                            return selectableList[$(this).index()];
+                        }).get();
 
                         var fn = $parse(callback);
                         scope.$apply(function () {
@@ -47,7 +52,7 @@
                                 $ui: ui,
                                 $event: e,
                                 $list: scope.$eval(attr.selectableList),
-                                $selected: scope.$eval(attr.selectableOut)
+                                $selected: selecteds
                             });
                         });
                     });
