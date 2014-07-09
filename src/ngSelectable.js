@@ -37,11 +37,11 @@
             return function (scope, element, attr) {
                 var selectableEvents = scope.$eval(attr.selectableEvents) || {};
 
-                for (eventName in selectableEvents) {
+                $.map(selectableEvents, function(callback, eventName){
                     element.bind("selectable" + eventName, function (e, ui) {
                         if (e.preventDefault) e.preventDefault();
 
-                        var fn = $parse(selectableEvents[eventName]);
+                        var fn = $parse(callback);
                         scope.$apply(function () {
                             fn(scope, {
                                 $ui: ui,
@@ -51,7 +51,7 @@
                             });
                         });
                     });
-                }
+                });
             }
         }]);
 })();
