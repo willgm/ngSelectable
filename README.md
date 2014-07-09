@@ -69,7 +69,7 @@ All the [jQueryUI Selectable options](http://api.jqueryui.com/selectable/#option
 All the [jQueryUI Selectable events](http://api.jqueryui.com/selectable/#events) can be passed through _selectable-events_ with all the angular injections like $index and $event. You can also get the working list ($list), the selected items ($selected) and the JqueryUI object ($ui).
 
 ```html
-<ul selectable selectable-events="{start:'myMethod($event, $ui, $seleted, $list)'}">
+<ul selectable selectable-events="{start:'myMethod($event, $ui, $selected, $list)'}">
   <li ng-repeat="item in items">{{item}}</li>
 </ul>
 ```
