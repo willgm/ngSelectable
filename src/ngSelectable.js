@@ -9,8 +9,8 @@
                 if (attr.selectableList && attr.selectableOut) {
                     oldStop = options.stop;
                     options.stop = function () {
-                        if (oldStop) oldStop()
-                        var selecteds = element.find('.ui-selected').map(function () {
+                        if (oldStop) oldStop();
+                        var selecteds = !selectableList? [] : element.find('.ui-selected').map(function () {
                             return selectableList[$(this).index()];
                         }).get();
                         scope.$apply(function () {
