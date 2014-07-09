@@ -27,9 +27,7 @@
                         element.selectable("destroy");
                         element.find('.ui-selected').removeClass('ui-selected');
                         if (attr.selectableOut) {
-                            scope.$apply(function () {
-                                scope[attr.selectableOut] = [];
-                            });
+                            scope[attr.selectableOut] = [];
                         }
                     }
                 })
