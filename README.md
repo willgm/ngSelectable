@@ -19,6 +19,12 @@ Allows you to easy select multiples items individually or in a group.
 
 ## Usage
 
+Install the bower package (or just copy the source):
+
+```
+bower install ngSelectable --save
+```
+
 Load the script file: ngSelectable.js in your application:
 
 ```html
@@ -31,7 +37,7 @@ Add the selectable module as a dependency to your application module:
 var myAppModule = angular.module('MyApp', ['ngSelectable'])
 ```
 
-Apply the directive to your form elements:
+Apply the directive to your seletable list:
 
 ```html
 <ul selectable selectable-list="items">
