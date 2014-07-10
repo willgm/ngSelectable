@@ -1,0 +1,30 @@
+{
+  "name": "ngSelectable",
+  "version": "1.0.0",
+  "homepage": "https://github.com/willgm/ngSelectable",
+  "authors": [
+    "William Grasel"
+  ],
+  "description": "AngularJS bindings for jQuery UI Selectable",
+  "main": "./src/ngSelectable.js",
+  "keywords": [
+    "angularjs",
+    "jquery",
+    "jqueryui",
+    "directive",
+    "selectable"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.2.19",
+    "jquery-ui": "~1.11.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demo"
+  ]
+}
