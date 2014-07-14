@@ -37,7 +37,7 @@ Add the selectable module as a dependency to your application module:
 var myAppModule = angular.module('MyApp', ['ngSelectable'])
 ```
 
-Apply the directive to your seletable list:
+Apply the directive to your selectable list:
 
 ```html
 <ul selectable selectable-list="items">
@@ -45,10 +45,10 @@ Apply the directive to your seletable list:
 </ul>
 ```
 
-### Seleted Items Binding
+### Selected Items Binding
 
 ```html
-Seleted: <span ng-repeat="item in selected">{{item}}</span>
+Selected: <span ng-repeat="item in selected">{{item}}</span>
 <ul selectable selectable-list="items" selectable-out="selected">
   <li ng-repeat="item in items">{{item}}</li>
 </ul>
