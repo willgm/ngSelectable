@@ -1,0 +1,33 @@
+{
+  "name": "ngSelectable",
+  "version": "1.0.1",
+  "description": "AngularJS bindings for jQuery UI Selectable",
+  "author": "William Grasel",
+  "homepage": "https://github.com/willgm/ngSelectable",
+  "bugs": {
+    "url": "https://github.com/willgm/ngSelectable/issues"
+  },
+  "keywords": [
+    "angularjs",
+    "jquery",
+    "jquery-ui",
+    "selectable"
+  ],
+  "main": "./src/ngSelectable.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "pretest": "npm install",
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willgm/ngSelectable.git"
+  },
+  "devDependencies": {
+    "karma": "0.12.17",
+    "karma-chrome-launcher": "0.1.4",
+    "karma-jasmine": "0.1.5"
+  }
+}
