@@ -1,6 +1,6 @@
 {
   "name": "ngSelectable",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AngularJS bindings for jQuery UI Selectable",
   "author": "William Grasel",
   "homepage": "https://github.com/willgm/ngSelectable",

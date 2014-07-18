@@ -2,24 +2,24 @@
     angular.module("ngSelectable", [])
         .directive("selectable", function () {
             return function (scope, element, attr) {
-                var selectable = attr.selectable==="" || scope.$eval(attr.selectable);
                 var options = scope.$eval(attr.selectableOptions) || {};
-                var selectableList = scope.$eval(attr.selectableList);
 
                 if (attr.selectableList && attr.selectableOut) {
-                    oldStop = options.stop;
+                    var oldStop = options.stop;
                     options.stop = function () {
                         if (oldStop) oldStop();
-                        var selecteds = !selectableList? [] : element.find('.ui-selected').map(function () {
+                        var selectableList = scope.$eval(attr.selectableList);
+                        var selected = !selectableList? [] : element.find('.ui-selected').map(function () {
                             return selectableList[$(this).index()];
                         }).get();
                         scope.$apply(function () {
-                            scope[attr.selectableOut] = selecteds;
+                            scope[attr.selectableOut] = selected;
                         });
                     }
                 }
 
-                if (selectable) element.selectable(options);
+                if (attr.selectable==="" || scope.$eval(attr.selectable))
+                    element.selectable(options);
 
                 scope.$watch(attr.selectable, function (value, old) {
                     if (value) return element.selectable(options);
@@ -36,13 +36,13 @@
         .directive("selectableEvents", ['$parse', function ($parse) {
             return function (scope, element, attr) {
                 var selectableEvents = scope.$eval(attr.selectableEvents) || {};
-                var selectableList = scope.$eval(attr.selectableList);
 
                 $.map(selectableEvents, function(callback, eventName){
                     element.bind("selectable" + eventName, function (e, ui) {
                         if (e.preventDefault) e.preventDefault();
 
-                        var selecteds = !selectableList? [] : element.find('.ui-selected').map(function () {
+                        var selectableList = scope.$eval(attr.selectableList);
+                        var selected = !selectableList? [] : element.find('.ui-selected').map(function () {
                             return selectableList[$(this).index()];
                         }).get();
 
@@ -52,7 +52,7 @@
                                 $ui: ui,
                                 $event: e,
                                 $list: scope.$eval(attr.selectableList),
-                                $selected: selecteds
+                                $selected: selected
                             });
                         });
                     });
