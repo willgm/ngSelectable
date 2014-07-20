@@ -1,6 +1,6 @@
 {
   "name": "ngSelectable",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/willgm/ngSelectable",
   "authors": [
     "William Grasel"
@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "angular": "~1.2.19",
+    "angular": "~1.2.20",
     "jquery-ui": "~1.11.0"
   },
   "devDependencies": {
