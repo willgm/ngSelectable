@@ -18,12 +18,10 @@
                     }
                 }
 
-                if (attr.selectable==="" || scope.$eval(attr.selectable))
-                    element.selectable(options);
-
                 scope.$watch(attr.selectable, function (value, old) {
-                    if (value) return element.selectable(options);
-                    if (old) {
+                    if (value || value===undefined)
+                        return element.selectable(options);
+                    if (!value && old) {
                         element.selectable("destroy");
                         element.find('.ui-selected').removeClass('ui-selected');
                         if (attr.selectableOut) {
