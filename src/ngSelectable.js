@@ -1,4 +1,5 @@
 (function () {
+    'use strict';
     angular.module("ngSelectable", [])
         .directive("selectable", function () {
             return function (scope, element, attr) {
