@@ -5,9 +5,7 @@
                 var options = scope.$eval(attr.selectableOptions) || {};
 
                 if (attr.selectableList && attr.selectableOut) {
-                    var oldStop = options.stop;
-                    options.stop = function () {
-                        if (oldStop) oldStop();
+                    element.bind("selectablestop", function () {
                         var selectableList = scope.$eval(attr.selectableList);
                         var selected = !selectableList? [] : element.find('.ui-selected').map(function () {
                             return selectableList[$(this).index()];
@@ -15,7 +13,7 @@
                         scope.$apply(function () {
                             scope[attr.selectableOut] = selected;
                         });
-                    }
+                    });
                 }
 
                 scope.$watch(attr.selectable, function (value, old) {

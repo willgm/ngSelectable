@@ -4,6 +4,33 @@ describe('ngSelectable', function () {
 
     beforeEach(module('ngSelectable'));
 
+    describe('Selected Items Binding', function () {
+
+        it('should update target', inject(function ($compile, $rootScope) {
+            $rootScope.items = ["oi", "ola"];
+            $rootScope.selected = [];
+            var element = angular.element('<ul selectable selectable-list="items" selectable-out="selected">' +
+                                              '<li ng-repeat="item in items">{{item}}</li>' +
+                                          '</ul>');
+            $compile(element)($rootScope);
+            $rootScope.$digest();
+            element.find('li').first().addClass('ui-selected');
+            element.trigger("selectablestop");
+            expect($rootScope.selected.length).toBe(1);
+        }));
+
+        it('should erase target when toggle directive off', inject(function ($compile, $rootScope) {
+            $rootScope.items = ["oi", "ola"];
+            $rootScope.selected = ["oi"];
+            var element = $compile('<ul ng-init="var=true" selectable="var" selectable-list="items" selectable-out="selected"></ul>')($rootScope);
+            $rootScope.$digest();
+            $rootScope.var = false;
+            $rootScope.$digest();
+            expect($rootScope.selected.length).toBe(0);
+        }));
+
+    });
+
     describe('Directive Toggle', function () {
 
         beforeEach(function () {
@@ -56,6 +83,80 @@ describe('ngSelectable', function () {
             $rootScope.var = false;
             $rootScope.$digest();
             expect(element.selectable).toHaveBeenCalledWith("destroy");
+        }));
+
+    });
+
+    describe('Options and Events', function () {
+
+        it('should use options at selectable call', inject(function ($compile, $rootScope) {
+            spyOn(angular.element.fn, 'selectable');
+            $rootScope.myOptions = {filter:'li'};
+            var element = $compile('<ul selectable selectable-options="myOptions"></ul>')($rootScope);
+            $rootScope.$digest();
+            expect(element.selectable).toHaveBeenCalledWith($rootScope.myOptions);
+        }));
+
+        it('should bind selectable events', inject(function ($compile, $rootScope) {
+            $rootScope.callback = function () {};
+            $rootScope.myEvents = {start:'callback()'};
+            spyOn($rootScope, 'callback');
+            var element = $compile('<ul selectable selectable-events="myEvents"></ul>')($rootScope);
+            element.trigger("selectablestart");
+            expect($rootScope.callback).toHaveBeenCalled();
+        }));
+
+        it('should inject working list at selectable events', inject(function ($compile, $rootScope) {
+            $rootScope.callback = function () {};
+            $rootScope.myEvents = {start:'callback($list)'};
+            $rootScope.items = ["oi", "ola"];
+            spyOn($rootScope, 'callback');
+            var element = $compile('<ul selectable selectable-list="items" selectable-events="myEvents"></ul>')($rootScope);
+            element.trigger("selectablestart");
+            expect($rootScope.callback).toHaveBeenCalledWith($rootScope.items);
+        }));
+
+        it('should inject selected list at selectable events', inject(function ($compile, $rootScope) {
+            $rootScope.callback = function () {};
+            spyOn($rootScope, 'callback');
+            $rootScope.myEvents = {stop:'callback($selected)'};
+            $rootScope.items = ["oi", "ola"];
+            var element = angular.element('<ul selectable selectable-list="items" selectable-events="myEvents">' +
+                                              '<li ng-repeat="item in items">{{item}}</li>' +
+                                          '</ul>');
+            $compile(element)($rootScope);
+            $rootScope.$digest();
+            element.find('li').first().addClass('ui-selected');
+            element.trigger("selectablestop");
+            expect($rootScope.callback).toHaveBeenCalledWith(['oi']);
+        }));
+
+        it('should inject jquery event at selectable events', inject(function ($compile, $rootScope) {
+            $rootScope.callback = function () {};
+            $rootScope.myEvents = {start:'callback($event)'};
+            spyOn($rootScope, 'callback');
+            var element = angular.element('<ul selectable selectable-events="myEvents"></ul>');
+            var event = {};
+            element.bind('selectablestart', function (ev) {
+                event = ev;
+            });
+            $compile(element)($rootScope);
+            element.trigger("selectablestart");
+            expect($rootScope.callback).toHaveBeenCalledWith(event);
+        }));
+
+        it('should inject jquery ui object at selectable events', inject(function ($compile, $rootScope) {
+            $rootScope.callback = function () {};
+            $rootScope.myEvents = {start:'callback($ui)'};
+            spyOn($rootScope, 'callback');
+            var element = angular.element('<ul selectable selectable-events="myEvents"></ul>');
+            var jui = {};
+            element.bind('selectablestart', function (ev, ui) {
+                jui = ui;
+            });
+            $compile(element)($rootScope);
+            element.trigger("selectablestart");
+            expect($rootScope.callback).toHaveBeenCalledWith(jui);
         }));
 
     });
