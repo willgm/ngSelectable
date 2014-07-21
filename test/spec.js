@@ -6,7 +6,7 @@ describe('ngSelectable', function () {
 
     describe('Selected Items Binding', function () {
 
-        it('should update target', inject(function ($compile, $rootScope) {
+        it('should update simple target', inject(function ($compile, $rootScope) {
             $rootScope.items = ["oi", "ola"];
             $rootScope.selected = [];
             var element = angular.element('<ul selectable selectable-list="items" selectable-out="selected">' +
@@ -17,6 +17,21 @@ describe('ngSelectable', function () {
             element.find('li').first().addClass('ui-selected');
             element.trigger("selectablestop");
             expect($rootScope.selected.length).toBe(1);
+        }));
+
+        it('should update complex target', inject(function ($compile, $rootScope) {
+            $rootScope.items = ["oi", "ola"];
+            $rootScope.selected = {
+                list: []
+            };
+            var element = angular.element('<ul selectable selectable-list="items" selectable-out="selected.list">' +
+                                              '<li ng-repeat="item in items">{{item}}</li>' +
+                                          '</ul>');
+            $compile(element)($rootScope);
+            $rootScope.$digest();
+            element.find('li').first().addClass('ui-selected');
+            element.trigger("selectablestop");
+            expect($rootScope.selected.list.length).toBe(1);
         }));
 
         it('should erase target when toggle directive off', inject(function ($compile, $rootScope) {

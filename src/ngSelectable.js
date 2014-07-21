@@ -7,12 +7,15 @@
 
                 if (attr.selectableList && attr.selectableOut) {
                     element.bind("selectablestop", function () {
-                        var selectableList = scope.$eval(attr.selectableList);
+                        var selectableList = scope.$eval(attr.selectableList),
+                            selectableOut  = scope.$eval(attr.selectableOut), s;
                         var selected = !selectableList? [] : element.find('.ui-selected').map(function () {
                             return selectableList[$(this).index()];
                         }).get();
                         scope.$apply(function () {
-                            scope[attr.selectableOut] = selected;
+                            selectableOut.splice(0);
+                            while(s = selected.shift())
+                                selectableOut.push(s);
                         });
                     });
                 }

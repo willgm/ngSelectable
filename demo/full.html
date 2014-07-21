@@ -68,7 +68,8 @@
         angular.module('selectableApp', ['ngSelectable'])
             .controller('exampleController', function ($scope) {
                 $scope.selection = true;
-                $scope.selected = $scope.log = [];
+                $scope.selected = [];
+                $scope.log = [];
                 $scope.friends = [
                   {name: 'John', age: 25, gender: 'boy'},
                   {name: 'Jessie', age: 30, gender: 'girl'},
