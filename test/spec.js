@@ -76,7 +76,7 @@ describe('ngSelectable', function () {
             expect(element.selectable).toHaveBeenCalled();
         }));
 
-        it('should active with a falsy variable as parameter', inject(function($compile, $rootScope) {
+        it('should not active with a falsy variable as parameter', inject(function($compile, $rootScope) {
             var element = $compile('<span ng-init="var=false" selectable="var"></span>')($rootScope);
             $rootScope.$digest();
             expect(element.selectable).not.toHaveBeenCalled();
