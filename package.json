@@ -18,7 +18,7 @@
     "test": "test"
   },
   "scripts": {
-    "pretest": "npm install",
+    "pretest": "npm install && bower install",
     "test": "karma start"
   },
   "repository": {
@@ -26,8 +26,10 @@
     "url": "https://github.com/willgm/ngSelectable.git"
   },
   "devDependencies": {
-    "karma": "0.12.17",
-    "karma-chrome-launcher": "0.1.4",
-    "karma-jasmine": "0.1.5"
+    "bower": "1.7.2",
+    "jasmine-core": "2.4.1",
+    "karma": "0.13.19",
+    "karma-chrome-launcher": "0.2.2",
+    "karma-jasmine": "0.3.6"
   }
 }
