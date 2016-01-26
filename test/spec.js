@@ -6,6 +6,18 @@ describe('ngSelectable', function () {
 
     describe('Selected Items Binding', function () {
 
+        it('should inialize target when not defined yet', inject(function ($compile, $rootScope) {
+            $rootScope.items = ["oi", "ola"];
+            var element = angular.element('<ul selectable selectable-list="items" selectable-out="selected">' +
+                                              '<li ng-repeat="item in items">{{item}}</li>' +
+                                          '</ul>');
+            $compile(element)($rootScope);
+            $rootScope.$digest();
+            element.find('li').first().addClass('ui-selected');
+            element.trigger("selectablestop");
+            expect($rootScope.selected.length).toBe(1);
+        }));
+
         it('should update simple target', inject(function ($compile, $rootScope) {
             $rootScope.items = ["oi", "ola"];
             $rootScope.selected = [];

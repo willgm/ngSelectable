@@ -13,6 +13,8 @@
                             return selectableList[$(this).index()];
                         }).get();
                         scope.$apply(function () {
+                            if(selectableOut===undefined)
+                                scope[attr.selectableOut] = selectableOut = [];
                             selectableOut.splice(0);
                             while(s = selected.shift())
                                 selectableOut.push(s);
